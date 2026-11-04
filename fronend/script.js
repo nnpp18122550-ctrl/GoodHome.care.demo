@@ -1,4 +1,5 @@
 const bookingForm = document.querySelector(".booking-form");
+const status = document.getElementById('booking-status');
 
 let isSubmitting = false;
 bookingForm.addEventListener("submit", async (event) => {
@@ -50,7 +51,7 @@ if (
 
   if (data.success) {
     bookingForm.reset();
-    alert("ได้รับการจองเรียบร้อยแล้ว");
+    alert("ได้รับการจองเรียบร้อยแล้ว");  
 }else {
     alert("คิวไม่ว่างในเวลาที่คุณเลือก กรุณาเลือกเวลาอื่น");
 }
@@ -61,5 +62,6 @@ if (
   isSubmitting = false;
   submitButton.disabled = false;
   submitButton.textContent = "ยืนยันการจอง";
+  status.textContent = 'ส่งคำขอเรียบร้อยแล้ว';
 }
 });
