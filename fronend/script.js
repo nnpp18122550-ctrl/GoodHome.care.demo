@@ -56,18 +56,21 @@ if (
         event_category: "booking"
     });
     bookingForm.reset();
+    status.textContent = "เราได้รับการจองแล้วจะติดต่อกลับไปใน 15-30นาที"
     alert("ได้รับการจองเรียบร้อยแล้ว");  
 }else {
+    status.textContent = "คิวไม่ว่างในเวลาที่คุณเลือกกรุณาติดต่อเวลาอื่น"
     alert("คิวไม่ว่างในเวลาที่คุณเลือก กรุณาเลือกเวลาอื่น");
 }
   console.log(data)
 }catch(error){
   alert(error.message) 
+  status.textContent = "การติดต่อกับเซิฟเวอร์มีปัญหา"
 }finally {
   isSubmitting = false;
   submitButton.disabled = false;
   submitButton.textContent = "ยืนยันการจอง";
-  status.textContent = "ส่งคำขอเรียบร้อยแล้ว";
+  
 }
 });
 //ส่วน ga4 เก็บข้อมูลช่องทางติดต่อ
