@@ -1,5 +1,5 @@
 const bookingForm = document.querySelector(".booking-form");
-const status = document.getElementById('booking-status');
+
 
 let isSubmitting = false;
 bookingForm.addEventListener("submit", async (event) => {
@@ -7,10 +7,12 @@ bookingForm.addEventListener("submit", async (event) => {
     if (isSubmitting) return;
     isSubmitting = true;
 
+    const status = document.getElementById("booking-status");
     const submitButton = bookingForm.querySelector('button[type="submit"]');
+
     submitButton.disabled = true;
     submitButton.textContent = "กำลังส่งข้อมูล...";
-    
+    status.textContent = "กำลังส่งข้อมูล..."
 
   const bookingData = {
     name: document.getElementById("customer-name").value.trim(),
@@ -50,6 +52,9 @@ if (
   const data = await response.json();
 
   if (data.success) {
+    gtag("event", "booking_submit", {
+        event_category: "booking"
+    });
     bookingForm.reset();
     alert("ได้รับการจองเรียบร้อยแล้ว");  
 }else {
@@ -62,6 +67,16 @@ if (
   isSubmitting = false;
   submitButton.disabled = false;
   submitButton.textContent = "ยืนยันการจอง";
-  status.textContent = 'ส่งคำขอเรียบร้อยแล้ว';
+  status.textContent = "ส่งคำขอเรียบร้อยแล้ว";
 }
+});
+//ส่วน ga4 เก็บข้อมูลช่องทางติดต่อ
+document.addEventListener("click", (event) => {
+    const contactButton = event.target.closest("[data-contact-method]");
+    if (!contactButton) return;
+    const method = contactButton.dataset.contactMethod;
+    gtag("event", "contact_click", {
+        contact_method: method
+    });
+
 });
